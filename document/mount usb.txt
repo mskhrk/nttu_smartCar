@@ -1,0 +1,8 @@
+fdisk -l 
+mkdir /mnt/usb
+---------------
+mount -t vfat /dev/sda1 /mnt/usb
+cd /mnt/usb
+
+cd /
+umount /mnt/usb

@@ -1,0 +1,63 @@
+cd /var/www/cgi-bin/smart_car_CGI
+gcc -o ./smart_car_front.cgi ./smart_car_front.c
+gcc -o ./smart_car_left.cgi ./smart_car_left.c
+gcc -o ./smart_car_stop.cgi ./smart_car_stop.c
+gcc -o ./smart_car_right.cgi ./smart_car_right.c
+gcc -o ./smart_car_back.cgi ./smart_car_back.c
+gcc -o ./smart_car_LF.cgi ./smart_car_LF.c
+gcc -o ./smart_car_RF.cgi ./smart_car_RF.c
+gcc -o ./smart_car_high_speed.cgi ./smart_car_high_speed.c
+gcc -o ./smart_car_medium_speed.cgi ./smart_car_medium_speed.c
+gcc -o ./smart_car_LB.cgi ./smart_car_LB.c
+gcc -o ./smart_car_RB.cgi ./smart_car_RB.c
+gcc -o ./smart_car_low_speed.cgi ./smart_car_low_speed.c
+gcc -o ./smart_car_add_speed.cgi ./smart_car_add_speed.c
+gcc -o ./smart_car_subtract_speed.cgi ./smart_car_subtract_speed.c
+gcc -o ./smart_car_test1.cgi ./smart_car_test1.c
+gcc -o ./smart_car_test2.cgi ./smart_car_test2.c
+gcc -o ./smart_car_test3.cgi ./smart_car_test3.c
+gcc -o ./smart_car_test4.cgi ./smart_car_test4.c
+gcc -o ./smart_car_test5.cgi ./smart_car_test5.c
+gcc -o ./smart_car_test6.cgi ./smart_car_test6.c
+
+rm /var/www/cgi-bin/smart_car_front.cgi
+rm /var/www/cgi-bin/smart_car_left.cgi
+rm /var/www/cgi-bin/smart_car_stop.cgi
+rm /var/www/cgi-bin/smart_car_right.cgi
+rm /var/www/cgi-bin/smart_car_back.cgi
+rm /var/www/cgi-bin/smart_car_LF.cgi
+rm /var/www/cgi-bin/smart_car_RF.cgi
+rm /var/www/cgi-bin/smart_car_high_speed.cgi
+rm /var/www/cgi-bin/smart_car_medium_speed.cgi
+rm /var/www/cgi-bin/smart_car_LB.cgi
+rm /var/www/cgi-bin/smart_car_RB.cgi
+rm /var/www/cgi-bin/smart_car_low_speed.cgi
+rm /var/www/cgi-bin/smart_car_add_speed.cgi
+rm /var/www/cgi-bin/smart_car_subtract_speed.cgi
+rm /var/www/cgi-bin/smart_car_test1.cgi
+rm /var/www/cgi-bin/smart_car_test2.cgi
+rm /var/www/cgi-bin/smart_car_test3.cgi
+rm /var/www/cgi-bin/smart_car_test4.cgi
+rm /var/www/cgi-bin/smart_car_test5.cgi
+rm /var/www/cgi-bin/smart_car_test6.cgi
+
+cp ./smart_car_front.cgi /var/www/cgi-bin
+cp ./smart_car_left.cgi /var/www/cgi-bin
+cp ./smart_car_stop.cgi /var/www/cgi-bin
+cp ./smart_car_right.cgi /var/www/cgi-bin
+cp ./smart_car_back.cgi /var/www/cgi-bin
+cp ./smart_car_LF.cgi /var/www/cgi-bin
+cp ./smart_car_RF.cgi /var/www/cgi-bin
+cp ./smart_car_high_speed.cgi /var/www/cgi-bin
+cp ./smart_car_medium_speed.cgi /var/www/cgi-bin
+cp ./smart_car_LB.cgi /var/www/cgi-bin
+cp ./smart_car_RB.cgi /var/www/cgi-bin
+cp ./smart_car_low_speed.cgi /var/www/cgi-bin
+cp ./smart_car_add_speed.cgi /var/www/cgi-bin
+cp ./smart_car_subtract_speed.cgi /var/www/cgi-bin
+cp ./smart_car_test1.cgi /var/www/cgi-bin
+cp ./smart_car_test2.cgi /var/www/cgi-bin
+cp ./smart_car_test3.cgi /var/www/cgi-bin
+cp ./smart_car_test4.cgi /var/www/cgi-bin
+cp ./smart_car_test5.cgi /var/www/cgi-bin
+cp ./smart_car_test6.cgi /var/www/cgi-bin
