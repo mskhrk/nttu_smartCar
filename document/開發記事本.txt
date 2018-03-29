@@ -1,3 +1,5 @@
 20180305 local移植github
 20180325 解決opencv 外部連結函式庫問題 add document/opencv外部連結函式庫問題.txt
 	 測試完可於C程式中使用system()執行opencv的c++輸出執行檔
+20180329 解決‘treatWifi’warning: passing argument 1 of ‘getMessage’ makes pointer from integer without a cast [enabled by default]
+	 因為沒有定義就使用函式

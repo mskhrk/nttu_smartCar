@@ -20,6 +20,9 @@
 	extern int Wifi_triaxialAccelerator;
 	extern char Wifi_TriaxialAccelerator_data[100];
 
+	void getMessage(char* ,char*);
+	void checkData(char*,int*);
+	
 /*	全域變數
 	
 	Wifi_run 1/0 是否執行wifi執行緒
