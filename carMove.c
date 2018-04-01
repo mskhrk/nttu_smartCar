@@ -20,8 +20,8 @@
 
 
 /*
-	int CM_run 0無移動 1跌倒移動 2意外移動(fire)
-	int CM_run 3意外移動(Mq3) 4意外移動(Mq4) 5意外移動(Mq7) 
+	int AD_nowRun 0無移動 1跌倒移動 2意外移動(fire)
+	int AD_nowRun 3意外移動(Mq3) 4意外移動(Mq4) 5意外移動(Mq7) 
 	
 	需預先設定這些點的位置
 	int CM_localFire
@@ -41,7 +41,7 @@
 int carMove()
 {
 	int i_1;
-	int step=-1;
+	int step=-1; //計錄需求移動步數
 	int CM_nowIdTem=CM_nowId;
 	
 	//計算移動路徑與移動

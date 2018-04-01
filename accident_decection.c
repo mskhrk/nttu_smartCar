@@ -22,7 +22,8 @@ int accident_decection()
 	while(1){
 		while(CM_run==1){sleep(100);}
 		
-		//先判斷是否有危險訊息
+		//先判斷是否有危險訊息、後判斷是否正在移動
+		//設定目標位置、意外種類辨別變數、移動訊號變數
 		if(Wifi_fire==1&&CM_run==0){CM_target=CM_localFire;AD_nowRun=1;CM_run=1;}
 		if(Wifi_mq3==1&&CM_run==0){CM_target=CM_localMq3;AD_nowRun=2;CM_run=1;}
 		if(Wifi_mq4==1&&CM_run==0){CM_target=CM_localMq4;AD_nowRun=3;CM_run=1;}
