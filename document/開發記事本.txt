@@ -3,3 +3,5 @@
 	 測試完可於C程式中使用system()執行opencv的c++輸出執行檔
 20180329 解決‘treatWifi’warning: passing argument 1 of ‘getMessage’ makes pointer from integer without a cast [enabled by default]
 	 因為沒有定義就使用函式
+20180402 新增sm_car.c->id2direction註解
+	 新增sm_car.c->findPath註解
