@@ -5,3 +5,7 @@
 	 因為沒有定義就使用函式
 20180402 新增sm_car.c->id2direction註解
 	 新增sm_car.c->findPath註解
+
+20180405 修正sm_car.c goTarget完 沒有更新現在位置資訊問題
+
+20180408 修正printf()和sleep()無法正常顯示問題 藉由在字串結尾加入 \n或使用fflush(stdout);

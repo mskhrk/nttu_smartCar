@@ -1557,7 +1557,7 @@ int planPoint(char *fileName,int goDirection1,int goDirection2,int starPoint,int
 	
 	
 	ans=nextPoint(fileName,goDirection1,goDirection2,starPoint);
-	nextLink(fileName,pointx4,starPoint,0);
+	nextLink(fileName,pointx4,starPoint,0);//用於載入pointx4數值
 	secPoint[0]=getSecPoint(ans,pointx4);
 
 	if(ans==0)//目標方向檢測不到換方向
@@ -1658,8 +1658,9 @@ int getSecPoint(int ans,int *pointx4)
 
 int nextPoint(char *fileName,int goDirection1,int goDirection2,int nowPoint)
 //回傳下一個目標點
+//goDirection1先 goDirection2後
 //回傳0表示沒有下一個目標點
-//只檢測目標方向
+//只檢測目標方向(最多2個方向)
 {
 	int pointx4[4]={0,0,0,0};
 	int ans;

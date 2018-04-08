@@ -44,11 +44,12 @@ int carMove()
 	int step=-1; //計錄需求移動步數
 	int CM_nowIdTem=CM_nowId;
 	
+	CM_passPoint[0]=CM_nowIdTem;//起始位置
 	//計算移動路徑與移動
 	while(1){
 		if(CM_run==1)
 		{
-			CM_passPoint[0]=0;//因路徑規劃運作需要所以至少要初始化第一筆
+			//CM_passPoint[0]=0;//因路徑規劃運作需要所以至少要初始化第一筆(好像不需要,設定0反而忘記紀錄起始位置)(需確認)
 			do{
 				CM_nowIdTem=findPath("hcar.map",CM_nowIdTem,CM_target,&CM_secPoint,CM_passPoint);//將計算結果放到CM_nowIdTem(一步一筆)
 	
@@ -63,6 +64,7 @@ int carMove()
 			//移動
 			do{
 			CM_direction=goTarget("hcar.map",CM_direction,CM_nowId,CM_passPoint[step]);
+			CM_nowId=CM_passPoint[step];
 			sleep(3);
 			step--;
 			}while(step!=0);
