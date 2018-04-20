@@ -1510,9 +1510,8 @@ int findPath(char *fileName,int star,int end,int *secPoint,int *passPoint)
 			}
 			if(passCount==5)
 			{
-				printf("!!");//須使用備援點(之後須建立備援點使用順序)
-				newStar=secPoint[0];//先用第1筆測試(之後筆要在寫)
-				return newStar;
+				printf("!!");
+				return 0;
 			}
 			psi=0;
 		}
@@ -1541,16 +1540,11 @@ int planPoint(char *fileName,int goDirection1,int goDirection2,int starPoint,int
 	int ans;
 	int pointx4[4]={0,0,0,0};
 	int newDirection1,newDirection2;
-	int secPoint_i=0;
 	
 	
 	ans=nextPoint(fileName,goDirection1,goDirection2,starPoint);
 	nextLink(fileName,pointx4,starPoint,0);
-	do
-	{
-		if(secPoint[secPoint_i]!=0)secPoint_i++;
-	}while(secPoint[secPoint_i]!=0);
-	secPoint[secPoint_i]=getSecPoint(ans,pointx4);
+	secPoint[0]=getSecPoint(ans,pointx4);
 
 	if(ans==0)//目標方向檢測不到換方向
 	{
@@ -1561,10 +1555,6 @@ int planPoint(char *fileName,int goDirection1,int goDirection2,int starPoint,int
 		newDirection1=1;
 		}
 		ans=nextPoint(fileName,newDirection1,goDirection2,starPoint);
-		do
-		{
-			if(secPoint[secPoint_i]!=0)secPoint_i++;
-		}while(secPoint[secPoint_i]!=0);
 		secPoint[0]=getSecPoint(ans,pointx4);
 	}
 	
@@ -1577,12 +1567,6 @@ int planPoint(char *fileName,int goDirection1,int goDirection2,int starPoint,int
 		newDirection2=2;
 		}
 		ans=nextPoint(fileName,goDirection1,newDirection2,starPoint);
-		do
-		{
-			if(secPoint[secPoint_i]!=0)secPoint_i++;
-		}while(secPoint[secPoint_i]!=0);
-		secPoint[0]=getSecPoint(ans,pointx4);
-		secPoint[0]=getSecPoint(ans,pointx4);
 		if(ans==0)printf("起始點即是目標or目標無法到達");
 		return 0;
 	}
@@ -1840,3 +1824,4 @@ int use_map(int map_x,int map_y,int *vector)
 	}
 }
 */
+

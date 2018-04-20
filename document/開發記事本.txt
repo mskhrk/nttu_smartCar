@@ -9,3 +9,8 @@
 20180405 修正sm_car.c goTarget完 沒有更新現在位置資訊問題
 
 20180408 修正printf()和sleep()無法正常顯示問題 藉由在字串結尾加入 \n或使用fflush(stdout);
+
+20180420 新增test_findPath 可演示路徑規劃過程
+	 修正carMove 全域變數CM_secPoint > CM_secPoint[50];
+	 修正sm_car.c 中 planPoint 單一備援被前一次覆蓋問題
+	 修正sm_car.c 中 planPoint passCount==5啟用備援功能

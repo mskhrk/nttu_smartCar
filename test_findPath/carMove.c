@@ -1,3 +1,4 @@
+	#include <stdio.h>	
 	extern int IR_judgment;
 
 	extern int Wifi_fire,Wifi_mq3,Wifi_mq4;
@@ -14,7 +15,7 @@
 	extern int CM_localFall;
 	extern int CM_direction;
 	extern int CM_nowId;
-	extern int CM_secPoint[50];
+	extern int CM_secPoint;
 	extern int CM_target;
 	extern int CM_passPoint[50];
 
@@ -49,7 +50,7 @@ int carMove()
 	while(1){
 		if(CM_run==1)
 		{
-			//CM_passPoint[0]=0;//因路徑規劃運作需要所以至少要初始化第一筆(好像不需要,設定0反而忘記紀錄起始位置)(需確認)
+			//CM_passPoint[0]=0;//因路徑規劃運作需要所以至少要初始化第一筆
 			do{
 				CM_nowIdTem=findPath("hcar.map",CM_nowIdTem,CM_target,&CM_secPoint,CM_passPoint);//將計算結果放到CM_nowIdTem(一步一筆)
 	
@@ -63,9 +64,10 @@ int carMove()
 			
 			//移動
 			do{
-			CM_direction=goTarget("hcar.map",CM_direction,CM_nowId,CM_passPoint[step]);
-			CM_nowId=CM_passPoint[step];
-			sleep(3);
+			//CM_direction=goTarget("hcar.map",CM_direction,CM_nowId,CM_passPoint[step]);
+			//CM_nowId=CM_passPoint[step];
+			printf("CM_direction %d CM_nowId %d CM_passPoint[%d] %d\n",CM_direction,CM_nowId,step,CM_passPoint[step]);
+			//sleep(3);
 			step--;
 			}while(step!=0);
 			switch(AD_nowRun)
@@ -105,3 +107,4 @@ int carMove()
 return 0;	
 }
 	
+
