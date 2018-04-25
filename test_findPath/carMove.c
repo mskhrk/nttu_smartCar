@@ -35,7 +35,7 @@
 	int CM_nowId;
 	int CM_target;
 	
-	int CM_secPoint;
+	int CM_secPoint[50];
 	int CM_passPoint[50];//存放規劃路徑
 	
 */
@@ -66,7 +66,7 @@ int carMove()
 			do{
 			//CM_direction=goTarget("hcar.map",CM_direction,CM_nowId,CM_passPoint[step]);
 			//CM_nowId=CM_passPoint[step];
-			printf("CM_direction %d CM_nowId %d CM_passPoint[%d] %d\n",CM_direction,CM_nowId,step,CM_passPoint[step]);
+			printf("CM_secPoint %d CM_nowId %d CM_passPoint[%d] %d\n",CM_secPoint,CM_nowId,step,CM_passPoint[step]);
 			//sleep(3);
 			step--;
 			}while(step!=0);

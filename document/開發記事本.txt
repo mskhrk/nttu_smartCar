@@ -14,3 +14,9 @@
 	 修正carMove 全域變數CM_secPoint > CM_secPoint[50];
 	 修正sm_car.c 中 planPoint 單一備援被前一次覆蓋問題
 	 修正sm_car.c 中 planPoint passCount==5啟用備援功能
+
+20180425 發現當距離可行走的第2備援點太遠時會有運算上的失誤
+	 新增sm_car.c 中 delSecPoint addSecPoint 對備援點陣列進行操作
+	 修正sm_car.c 中 getSecPoint 運作 並加入相關子函數
+	 修正sm_car.c 中 函數排列順序
+	
