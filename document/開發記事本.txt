@@ -19,4 +19,14 @@
 	 新增sm_car.c 中 delSecPoint addSecPoint 對備援點陣列進行操作
 	 修正sm_car.c 中 getSecPoint 運作 並加入相關子函數
 	 修正sm_car.c 中 函數排列順序
-	
+
+20180426 完成路徑規劃
+	 新增sm_car.c 中全域變數CM_secPointSize CM_passPointSize
+	 新增carMove 中cleanPath() 
+	 修正carMove 中step計算方式
+	 修正sm_car.c 中 delSecPoint 計算錯誤
+	 修正sm_car.c 中 addSecPoint 語意流暢度
+	 新增sm_car.c 中 cleanPath()定義
+	 修正sm_car.c 中 planPoint功能
+	 修正sm_car.c 中 findPath功能	
+	 

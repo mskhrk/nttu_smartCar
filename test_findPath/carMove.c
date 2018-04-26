@@ -15,9 +15,12 @@
 	extern int CM_localFall;
 	extern int CM_direction;
 	extern int CM_nowId;
-	extern int CM_secPoint;
 	extern int CM_target;
+	extern int CM_secPointSize;
+	extern int CM_secPoint[50];
+	extern int CM_passPointSize;
 	extern int CM_passPoint[50];
+	extern int AD_nowRun;
 
 
 /*
@@ -58,18 +61,20 @@ int carMove()
 				{
 					CM_passPoint[i_1]=CM_passPoint[i_1-1];
 				}
-				step++;//未測試
 				CM_passPoint[0]=CM_nowIdTem;
+				if(CM_nowIdTem==0)CM_passPoint[0]=CM_secPoint[0];
+				if(CM_nowIdTem==CM_target)CM_nowIdTem=0;
 			}while(CM_nowIdTem!=0);
-			
+			step=cleanPath("hcar.map",CM_nowId);
 			//移動
 			do{
 			//CM_direction=goTarget("hcar.map",CM_direction,CM_nowId,CM_passPoint[step]);
 			//CM_nowId=CM_passPoint[step];
-			printf("CM_secPoint %d CM_nowId %d CM_passPoint[%d] %d\n",CM_secPoint,CM_nowId,step,CM_passPoint[step]);
+			printf("CM_secPoint %d CM_nowId %d CM_passPoint[%d] %d\n",CM_secPoint[0],CM_nowId,step,CM_passPoint[step]);
 			//sleep(3);
 			step--;
 			}while(step!=0);
+			printf("CM_secPoint %d CM_nowId %d CM_passPoint[%d] %d\n",CM_secPoint[0],CM_nowId,0,CM_passPoint[0]);
 			switch(AD_nowRun)
 			{
 				case 1:
@@ -107,4 +112,5 @@ int carMove()
 return 0;	
 }
 	
+
 

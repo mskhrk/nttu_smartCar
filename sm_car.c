@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+
+//此函式庫沒有最上方的宣告所以子函數需要放在上方
+
 /*
 mapCreat 地圖生成(16方向)
 
@@ -1427,6 +1430,198 @@ int id2direction(char *fileName,int star,int end)
 }
 
 
+void addSecPoint(int add,int *secPoint,int size)
+//add想要加入的點
+//secPoint存放第2備援點的陣列
+//size存放第2備援點的陣列的大小
+{
+	//先檢查是否已經有此點存在
+	int i,noSame=0;
+	if(add!=0){
+		for(i=0;i<size;i++)
+		{
+			if(secPoint[i]==add)noSame++;
+		}
+		//所有點往後移動(如果移動次數超過size會導致資料遺失)
+		//如果超過size時需增大secPoint的大小
+		//size等於地圖大小時不會有上述問題發生
+		if(noSame==0)
+		{
+			for(i=size-1;i>0;i--)
+			{
+				secPoint[i]=secPoint[i-1];
+			}
+			secPoint[0]=add;
+		}
+	}
+}
+
+void delSecPoint(int del,int *secPoint,int size)
+//del想要刪除的點
+//secPoint存放第2備援點的陣列
+//size存放第2備援點的陣列的大小
+//想要刪除的點不存在時不做任何動作
+{
+	//先檢查是否已經有此點存在，並記錄位置
+	int i,Same=-1;
+	for(i=0;i<size;i++)
+	{
+		if(secPoint[i]==del)Same=i;
+	}
+
+	if(Same!=-1)
+	{
+		for(i=Same;i<size-1;i++)
+		{
+			secPoint[i]=secPoint[i+1];
+		}
+	}
+}
+
+
+
+
+
+void getSecPoint(int ans,int *pointx4,int *CM_passPoint,int CM_passPointSize,int *secPoint,int secPointSize)
+{
+	if(ans!=0){
+		//先確認是否在過去走過的路上出現過，沒有就加入
+		int i,ok0=1,ok1=1,ok2=1,ok3=1;
+		for(i=0;i<CM_passPointSize;i++)
+		{
+			if(pointx4[0]==CM_passPoint[i]||pointx4[0]==0)ok0=0;
+			if(pointx4[1]==CM_passPoint[i]||pointx4[1]==0)ok1=0;
+			if(pointx4[2]==CM_passPoint[i]||pointx4[2]==0)ok2=0;
+			if(pointx4[3]==CM_passPoint[i]||pointx4[3]==0)ok3=0;
+		}
+		if(ok0==1)addSecPoint(pointx4[0],secPoint,secPointSize);
+		if(ok1==1)addSecPoint(pointx4[1],secPoint,secPointSize);
+		if(ok2==1)addSecPoint(pointx4[2],secPoint,secPointSize);
+		if(ok3==1)addSecPoint(pointx4[3],secPoint,secPointSize);
+		
+		//刪除CM_passPoint的ans(是ans就不是備援)
+		delSecPoint(ans,secPoint,secPointSize);
+	}
+}
+
+
+//取得4方位連結點
+int nextLink(char *fileName,int *pointx4,int id,int direction)
+//fileName地圖檔
+//pointx4存放4個方位的連結
+//id要檢測的點
+//direction目標絕對方向 1~4北東南西
+{
+	int  map_point[9]={0,0,0,0,0,0,0,0,0};
+	int	 checkEmpty;
+	checkEmpty=get_map(fileName,map_point,id);
+	if(checkEmpty==0)
+	{
+		printf("This id can't find error");
+		return 0;
+	}
+	pointx4[0]=map_point[3];
+	pointx4[1]=map_point[4];
+	pointx4[2]=map_point[5];
+	pointx4[3]=map_point[6];
+	
+		switch(direction)
+	{
+		case 0://單純使用pointx4存放4個方位的連結功能
+		return 0;
+		break;
+		
+		case 1:
+		return map_point[3];
+		break;
+		
+		case 2:
+		return map_point[4];
+		break;
+		
+		case 3:
+		return map_point[5];
+		break;
+		
+		case 4:
+		return map_point[6];
+		break;
+	}
+}
+
+
+int nextPoint(char *fileName,int goDirection1,int goDirection2,int nowPoint)
+//回傳下一個目標點
+//回傳0表示沒有下一個目標點
+//只檢測目標方向
+{
+	int pointx4[4]={0,0,0,0};
+	int ans;
+	if(goDirection1!=0)
+	{
+		ans=nextLink(fileName,pointx4,nowPoint,goDirection1);
+		if(ans==0)
+		{
+			ans=nextLink(fileName,pointx4,nowPoint,goDirection2);
+			return ans;
+		}
+		return ans;
+	}
+	else
+	{
+		ans=nextLink(fileName,pointx4,nowPoint,goDirection2);
+		return ans;
+	}
+	
+}
+
+
+int planPoint(char *fileName,int goDirection1,int goDirection2,int starPoint,int *secPoint)
+//第二路徑起點secendPoint
+//前一點previousPoint
+//備援點secPoint
+{
+	
+	int ans;
+	int pointx4[4]={0,0,0,0};
+	int newDirection1,newDirection2;
+	int secPoint_i=0;
+	extern int CM_passPoint[50];
+	extern int CM_passPointSize;
+	extern int CM_secPoint[50];
+	extern int CM_secPointSize;
+	ans=nextPoint(fileName,goDirection1,goDirection2,starPoint);
+	nextLink(fileName,pointx4,starPoint,0);
+	getSecPoint(ans,pointx4,CM_passPoint,CM_passPointSize,CM_secPoint,CM_secPointSize);
+
+	if(ans==0)//目標方向檢測不到換方向
+	{
+		if(goDirection1==1){
+		newDirection1=3;
+		}
+		else{
+		newDirection1=1;
+		}
+		ans=nextPoint(fileName,newDirection1,goDirection2,starPoint);
+		getSecPoint(ans,pointx4,CM_passPoint,CM_passPointSize,CM_secPoint,CM_secPointSize);
+	}
+	
+	if(ans==0)//目標方向檢測不到換方向
+	{
+		if(goDirection2==2){
+		newDirection2=4;
+		}
+		else{
+		newDirection2=2;
+		}
+		ans=nextPoint(fileName,goDirection1,newDirection2,starPoint);
+		getSecPoint(ans,pointx4,CM_passPoint,CM_passPointSize,CM_secPoint,CM_secPointSize);
+		if(ans==0)printf("起始點即是目標or目標無法到達");
+		return 0;
+	}
+	return ans;
+}
+
 int findPath(char *fileName,int star,int end,int *secPoint,int *passPoint)
 {
 	int  map_point_star[9]={0,0,0,0,0,0,0,0,0};
@@ -1439,6 +1634,7 @@ int findPath(char *fileName,int star,int end,int *secPoint,int *passPoint)
 	int distance1,distance2;//目標絕對方向的距離
 	int prePoint,nowPoint;
 	int passPointNum=1,psi=1,passCount=0;//psi起始不能檢測，因為planPoint要用現在位置推算下一筆
+	extern int CM_secPointSize;
 	checkEmpty=get_map(fileName,map_point_star,star);
 	if(checkEmpty==0)
 	{
@@ -1512,6 +1708,7 @@ int findPath(char *fileName,int star,int end,int *secPoint,int *passPoint)
 			{
 				printf("!!");//須使用備援點(之後須建立備援點使用順序)
 				newStar=secPoint[0];//先用第1筆測試(之後筆要在寫)
+				delSecPoint(newStar,secPoint,CM_secPointSize);
 				return newStar;
 			}
 			psi=0;
@@ -1519,7 +1716,7 @@ int findPath(char *fileName,int star,int end,int *secPoint,int *passPoint)
 		psi++;
 	}
 	while(passPointNum!=0);//檢測到最後一筆(必0)
-		
+	delSecPoint(newStar,secPoint,CM_secPointSize);
 	return newStar;
 
 	
@@ -1532,203 +1729,29 @@ int findPath(char *fileName,int star,int end,int *secPoint,int *passPoint)
 
 		
 }
-int planPoint(char *fileName,int goDirection1,int goDirection2,int starPoint,int *secPoint)
-//第二路徑起點secendPoint
-//前一點previousPoint
-//備援點secPoint
-{
-	
-	int ans;
-	int pointx4[4]={0,0,0,0};
-	int newDirection1,newDirection2;
-	int secPoint_i=0;
-	
-	
-	ans=nextPoint(fileName,goDirection1,goDirection2,starPoint);
-	nextLink(fileName,pointx4,starPoint,0);
-	do
-	{
-		if(secPoint[secPoint_i]!=0)secPoint_i++;
-	}while(secPoint[secPoint_i]!=0);
-	secPoint[secPoint_i]=getSecPoint(ans,pointx4);
 
-	if(ans==0)//目標方向檢測不到換方向
-	{
-		if(goDirection1==1){
-		newDirection1=3;
-		}
-		else{
-		newDirection1=1;
-		}
-		ans=nextPoint(fileName,newDirection1,goDirection2,starPoint);
-		do
-		{
-			if(secPoint[secPoint_i]!=0)secPoint_i++;
-		}while(secPoint[secPoint_i]!=0);
-		secPoint[0]=getSecPoint(ans,pointx4);
-	}
-	
-	if(ans==0)//目標方向檢測不到換方向
-	{
-		if(goDirection2==2){
-		newDirection2=4;
-		}
-		else{
-		newDirection2=2;
-		}
-		ans=nextPoint(fileName,goDirection1,newDirection2,starPoint);
-		do
-		{
-			if(secPoint[secPoint_i]!=0)secPoint_i++;
-		}while(secPoint[secPoint_i]!=0);
-		secPoint[0]=getSecPoint(ans,pointx4);
-		secPoint[0]=getSecPoint(ans,pointx4);
-		if(ans==0)printf("起始點即是目標or目標無法到達");
-		return 0;
-	}
-	return ans;
-}
-
-int getSecPoint(int ans,int *pointx4)
+int cleanPath(char *fileName,int starPoint)
 {
-		int secPoint=0;
-		if(ans==pointx4[0])
-		{
-			secPoint=pointx4[1];
-			if(pointx4[1]==0){
-				secPoint=pointx4[2];
-				if(pointx4[2]==0){
-					secPoint=pointx4[3];
-					if(pointx4[3]==0){
-						secPoint=0;//沒有備援點
-					}
-				}
-			}
-			return secPoint;
-		}
-	
-		if(ans==pointx4[1])
-		{
-			secPoint=pointx4[2];
-			if(pointx4[2]==0){
-				secPoint=pointx4[3];
-				if(pointx4[3]==0){
-					secPoint=pointx4[0];
-					if(pointx4[0]==0){
-						secPoint=0;//沒有備援點				
-					}
-				}
-			}
-			return secPoint;
-		}
-				
-		if(ans==pointx4[2])
-		{
-			secPoint=pointx4[3];
-			if(pointx4[3]==0){
-				secPoint=pointx4[0];
-				if(pointx4[0]==0){
-					secPoint=pointx4[1];
-					if(pointx4[1]==0){
-					secPoint=0;//沒有備援點
-					}
-				}
-			}
-			return secPoint;
-		}		
-		
-		if(ans==pointx4[3])
-		{
-			secPoint=pointx4[0];
-			if(pointx4[0]==0){
-				secPoint=pointx4[1];
-				if(pointx4[1]==0){
-				secPoint=pointx4[2];
-					if(pointx4[2]==0){
-					secPoint=0;//沒有備援點
-					}
-				}
-			}
-			return secPoint;
-		}
-	return secPoint;
+	extern int CM_passPointSize;
+	extern int CM_passPoint[];
+	int  pointx4[4]={0,0,0,0};
+	int i,start=0;
+	for(i=0;i<CM_passPointSize;i++)
+	{
+		nextLink(fileName,pointx4,CM_passPoint[i],0);
+		start=i;
+		if(pointx4[0]==starPoint)break;
+		if(pointx4[1]==starPoint)break;
+		if(pointx4[2]==starPoint)break;
+		if(pointx4[3]==starPoint)break;
+	}
+	for(i=start+1;i<CM_passPointSize;i++)
+	{
+		CM_passPoint[i]=0;
+	}
+	return start;
 	
 }
-
-
-
-
-int nextPoint(char *fileName,int goDirection1,int goDirection2,int nowPoint)
-//回傳下一個目標點
-//回傳0表示沒有下一個目標點
-//只檢測目標方向
-{
-	int pointx4[4]={0,0,0,0};
-	int ans;
-	if(goDirection1!=0)
-	{
-		ans=nextLink(fileName,pointx4,nowPoint,goDirection1);
-		if(ans==0)
-		{
-			ans=nextLink(fileName,pointx4,nowPoint,goDirection2);
-			return ans;
-		}
-		return ans;
-	}
-	else
-	{
-		ans=nextLink(fileName,pointx4,nowPoint,goDirection2);
-		return ans;
-	}
-	
-}
-
-
-
-//取得4方位連結點
-int nextLink(char *fileName,int *pointx4,int id,int direction)
-//fileName地圖檔
-//pointx4存放4個方位的連結
-//id要檢測的點
-//direction目標絕對方向 1~4北東南西
-{
-	int  map_point[9]={0,0,0,0,0,0,0,0,0};
-	int	 checkEmpty;
-	checkEmpty=get_map(fileName,map_point,id);
-	if(checkEmpty==0)
-	{
-		printf("This id can't find error");
-		return 0;
-	}
-	pointx4[0]=map_point[3];
-	pointx4[1]=map_point[4];
-	pointx4[2]=map_point[5];
-	pointx4[3]=map_point[6];
-	
-		switch(direction)
-	{
-		case 0://單純使用pointx4存放4個方位的連結功能
-		return 0;
-		break;
-		
-		case 1:
-		return map_point[3];
-		break;
-		
-		case 2:
-		return map_point[4];
-		break;
-		
-		case 3:
-		return map_point[5];
-		break;
-		
-		case 4:
-		return map_point[6];
-		break;
-	}
-}
-
 
 void saveMap(char *fileName,int x,int y,int id,int local,int mode)
 //手動紀錄方案(暫停使用)
@@ -1817,7 +1840,14 @@ void saveMap(char *fileName,int x,int y,int id,int local,int mode)
 	}
 	
 }
-
+void initArryay(int *arr,int size)
+{
+	int i;
+	for(i=0;i<size;i++)
+	{
+		arr[i]=0;
+	}
+}
 
 
 
@@ -1840,3 +1870,4 @@ int use_map(int map_x,int map_y,int *vector)
 	}
 }
 */
+

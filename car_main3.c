@@ -16,6 +16,7 @@
 /*error message*/
 #define handle_error(msg) do { perror(msg); exit(EXIT_FAILURE); } while (0)
 
+	
 int Wifi_run=1;
 int IR_run=1;
 int IR_humanIdentification =1 ;
@@ -29,16 +30,18 @@ char Wifi_mq4_data[100];
 char Wifi_mq7_data[100];
 char Wifi_heart_data[100];
 char Wifi_TriaxialAccelerator_data[100];
-int CM_run; 
+int CM_run=1; 
 int CM_localFire;
 int CM_localMq3;
 int CM_localMq4;
 int CM_localMq7;
-int CM_localFall;
-int CM_direction;
-int CM_nowId;
-int CM_target;
+int CM_localFall=1;
+int CM_direction=2;
+int CM_nowId=15;
+int CM_target=1;
+int CM_secPointSize=50;
 int CM_secPoint[50];
+int CM_passPointSize=50;
 int CM_passPoint[50];
 int AD_nowRun;
 	
@@ -71,6 +74,8 @@ int i;//for i
 int count,count2,count3;
 int tem;
 
+initArryay(CM_secPoint,CM_secPointSize);
+initArryay(CM_passPoint,CM_passPointSize);
 
 ret1 = pthread_create(&thread1,NULL,threadFun1, (void*) msg1);
 ret2 = pthread_create(&thread2,NULL,threadFun2, (void*) msg2);
