@@ -30,3 +30,4 @@
 	 修正sm_car.c 中 planPoint功能
 	 修正sm_car.c 中 findPath功能	
 	 
+20180528 修正sm_car.c 中 不必要功能移至unUseFunction.c	
