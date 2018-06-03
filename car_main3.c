@@ -87,6 +87,14 @@ pthread_join(thread2,NULL);
 pthread_join(thread3,NULL);
 pthread_join(thread4,NULL);
 
+//校正(設定)車子移動參數
+
+//檢測目前位置與方位
+
+	//掃描建立初始環境
+	
+
+
 return 0;
 }
 

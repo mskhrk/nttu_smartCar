@@ -16,7 +16,7 @@ halfMapCreat半地圖生成(7方向)
 參數說明
 *map_data		外部資料輸入
 *map 			外部存放位置
-allData		資料總筆數
+allData			資料總筆數
 scanTime		一次掃描數量
 */
 void halfMapCreat(int *map_data,int *map,int allData,int scanTime)

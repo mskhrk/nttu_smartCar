@@ -31,3 +31,6 @@
 	 修正sm_car.c 中 findPath功能	
 	 
 20180528 修正sm_car.c 中 不必要功能移至unUseFunction.c	
+
+20180603 檢測目前位置與方位功能模組製作開始
+
