@@ -37,7 +37,10 @@ int CM_localMq4;
 int CM_localMq7;
 int CM_localFall=1;
 int CM_direction=2;
-int CM_nowId=15;
+int CM_nowId=0;
+int CM_maxId=0;
+int CM_map_x=5000;
+int CM_map_y=5000;
 int CM_target=1;
 int CM_secPointSize=50;
 int CM_secPoint[50];
@@ -61,18 +64,8 @@ char *msg2 ="carMove thread";
 char *msg3 ="image_recognition thread";
 char *msg4 ="treatWifi thread";
 int ret1,ret2,ret3,ret4;
-int  map_point2[9]={0,0,0,0,0,0,0,0,0};
-int  map1_24_direction[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//最新掃描的資料
-int  map2_24_direction[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};//上一次掃描的資料
-int direction;//面向方向
-int dd;//面向方向差direction_difference
-int map_x;//地圖X
-int map_y;//地圖Y
-int map_id;//地圖id
-int goOk;
-int i;//for i
-int count,count2,count3;
-int tem;
+int  main_map_buff[9]={0,0,0,0,0,0,0,0,0};
+
 
 initArryay(CM_secPoint,CM_secPointSize);
 initArryay(CM_passPoint,CM_passPointSize);
@@ -91,9 +84,27 @@ pthread_join(thread4,NULL);
 
 //檢測目前位置與方位
 
+if(CM_nowId==0){
 	//掃描建立初始環境
-	
-
+	//預設id 1~10用於初始環境設定(目前使用1~4 5~10保留)
+	initScanXY(5000,5000,1);//初始掃描id 1 初始北
+	system("echo \"K1 90;\" > /dev/ttyPS1");//右順90
+	CM_nowId=1;
+	sleep(3);
+	initScanXY(5000,5000,2);//初始掃描id 2 初始東
+	system("echo \"K1 90;\" > /dev/ttyPS1");//右順90
+	CM_nowId=2;
+	sleep(3);
+	initScanXY(5000,5000,3);//初始掃描id 3 初始南
+	system("echo \"K1 90;\" > /dev/ttyPS1");//右順90
+	CM_nowId=3;
+	sleep(3);
+	initScanXY(5000,5000,4);//初始掃描id 4 初始西
+	CM_nowId=4;
+	system("echo \"K1 90;\" > /dev/ttyPS1");//右順90
+	sleep(3);
+}
+		
 
 return 0;
 }

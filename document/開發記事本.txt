@@ -1,36 +1,71 @@
 20180305 local移植github
+
 20180325 解決opencv 外部連結函式庫問題 add document/opencv外部連結函式庫問題.txt
+
 	 測試完可於C程式中使用system()執行opencv的c++輸出執行檔
+
 20180329 解決‘treatWifi’warning: passing argument 1 of ‘getMessage’ makes pointer from integer without a cast [enabled by default]
+
 	 因為沒有定義就使用函式
+
 20180402 新增sm_car.c->id2direction註解
+
 	 新增sm_car.c->findPath註解
+
 
 20180405 修正sm_car.c goTarget完 沒有更新現在位置資訊問題
 
+
 20180408 修正printf()和sleep()無法正常顯示問題 藉由在字串結尾加入 \n或使用fflush(stdout);
 
+
 20180420 新增test_findPath 可演示路徑規劃過程
+
 	 修正carMove 全域變數CM_secPoint > CM_secPoint[50];
+
 	 修正sm_car.c 中 planPoint 單一備援被前一次覆蓋問題
+
 	 修正sm_car.c 中 planPoint passCount==5啟用備援功能
 
+
 20180425 發現當距離可行走的第2備援點太遠時會有運算上的失誤
+
 	 新增sm_car.c 中 delSecPoint addSecPoint 對備援點陣列進行操作
+
 	 修正sm_car.c 中 getSecPoint 運作 並加入相關子函數
+
 	 修正sm_car.c 中 函數排列順序
 
 20180426 完成路徑規劃
+
 	 新增sm_car.c 中全域變數CM_secPointSize CM_passPointSize
-	 新增carMove 中cleanPath() 
+
+	 新增carMove 中cleanPath()
+ 
 	 修正carMove 中step計算方式
+
 	 修正sm_car.c 中 delSecPoint 計算錯誤
+
 	 修正sm_car.c 中 addSecPoint 語意流暢度
+
 	 新增sm_car.c 中 cleanPath()定義
+
 	 修正sm_car.c 中 planPoint功能
-	 修正sm_car.c 中 findPath功能	
+
+	 修正sm_car.c 中 findPath功能
+	
 	 
-20180528 修正sm_car.c 中 不必要功能移至unUseFunction.c	
+
+20180528 修正sm_car.c 中 不必要功能移至unUseFunction.c
+	
+
 
 20180603 檢測目前位置與方位功能模組製作開始
 
+
+
+20180605 car.map(環境地圖)轉換到hcar.map(可行走地圖)功能尚未製作
+
+
+
+20180610 creatLink試做

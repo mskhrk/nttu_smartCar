@@ -828,6 +828,7 @@ void set_map(char *fileName,int x,int y,int *vector,int id)
 
 int get_map(char *fileName,int *vector,int id)
 //使用id找資料，如果找完全部檔案沒有return 0
+//id上限9999
 {
 	FILE *map1;
 	int buff;
@@ -1072,7 +1073,25 @@ void scanXY(int map_x,int map_y,int map_id)
 	set_map("car.map",map_x,map_y,map_point,map_id);//第1筆id = 1 x = 0 y = 0
 }
 
-void scanXY2(int map_x,int map_y,int map_id ,int direction)
+void creatLink(char *fileName,int id,int direction)
+{
+
+	int  map_point[9]={0,0,0,0,0,0,0,0,0};
+	int	 checkEmpty;
+	checkEmpty=get_map(fileName,map_point,id);
+	if(checkEmpty==0)
+	{
+		printf("This id can't find error");
+		return 0;
+	}
+	
+
+
+}
+
+
+
+void scanXY2(int map_x,int map_y,int map_id ,int direction,int safe_distance)
 //依照方位進行寫入
 //x:x座標 y:y座標 map_id:存在地圖的序號 direction:這次面相的方向(1~4)(北東南西)
 {
@@ -1157,7 +1176,7 @@ void scanXY2(int map_x,int map_y,int map_id ,int direction)
 }
 
 
-
+//正前方90度位置掃描
 void initScanXY(int map_x,int map_y,int map_id)
 {
 	int  map_point[7]={0,0,0,0,0,0,0};
@@ -1173,11 +1192,12 @@ void initScanXY(int map_x,int map_y,int map_id)
 	int *map_data = calloc(allData, sizeof(int));//建立一個空間中資料
 	
 	load_data(map_data,allData);//檔案值載入記憶體
-
+	
+	//因為只有一個方向allData會是1 且arduino已經算好平均，單純資料搬移
 	halfMapCreat(map_data,map_point,allData,7);//map_point中取得外部資料
 		
 	//將資料加上ID寫入地圖
-	set_map("car.map",map_x,map_y,map_point,map_id);//第1筆id = 1 x = 0 y = 0
+	set_map("car.map",map_x,map_y,map_point,map_id);
 }
 
 //依照目標與現有資訊進行移動命令
@@ -1557,6 +1577,7 @@ void saveMap(char *fileName,int x,int y,int id,int local,int mode)
 //手動紀錄方案(暫停使用)
 //#序號 -X-Y-格式999-北-東-南-西-分區-預留-(環境資訊)
 //#序號 -X-Y-格式998-北-東-南-西-動作-預留-(動作紀錄)用local數值當動作
+//格式998 為先面向在旋轉 面向為整個地圖的絕對方位
 {
 	int  map_point[9]={0,0,0,0,0,0,0,0,0};
 	int  map_point2[7]={0,0,0,0,0,0,0};
@@ -1636,6 +1657,34 @@ void saveMap(char *fileName,int x,int y,int id,int local,int mode)
 		map_point2[4]=1;					//面向西方
 		map_point2[5]=local;				//選轉動作1右2左
 		set_map(fileName,x,y,map_point2,id);
+		break;
+		
+		case 9: 							//模式9寫入北方不可走一格
+		map_point2[0]=999;					//格式999
+		map_point2[1]=0;					//北
+		map_point2[5]=local;				//分區
+		set_map(fileName,x,y,map_point2,id);
+		break;
+		
+		case 10:							//模式2寫入東方不可走一格
+		map_point2[0]=999;					//格式999
+		map_point2[2]=0;					//東
+		map_point2[5]=local;				//分區
+		set_map(fileName,x,y,map_point2,id);
+		break;
+
+		case 11: 							//模式3寫入南方不可走一格
+		map_point2[0]=999;					//格式999						
+		map_point2[3]=0;					//南
+		map_point2[5]=local;				//分區
+		set_map(fileName,x,y,map_point2,id);
+		break;
+		
+		case 12:							//模式4寫入西方不可走一格
+		map_point2[0]=999;					//格式999
+		map_point2[4]=0;;					//西
+		map_point2[5]=local;				//分區
+		set_map(fileName,x,y,map_point2,id);
 		break;	
 	}
 	
@@ -1647,6 +1696,15 @@ void initArryay(int *arr,int size)
 	{
 		arr[i]=0;
 	}
+}
+
+int findStart()
+{
+	int  init_info[9]={0,0,0,0,0,0,0,0,0};//getmap用空間
+	int  map_point[9]={0,0,0,0,0,0,0,0,0};//getmap用空間
+	
+	get_map("car.map",map_point,map_id);
+
 }
 
 
