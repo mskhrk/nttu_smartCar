@@ -1073,21 +1073,123 @@ void scanXY(int map_x,int map_y,int map_id)
 	set_map("car.map",map_x,map_y,map_point,map_id);//第1筆id = 1 x = 0 y = 0
 }
 
-void creatLink(char *fileName,int id,int direction)
+int x_id_linkMap(char *source,char *target,int id,int mapType)
+{
+	int  map_point[9]={0,0,0,0,0,0,0,0,0};
+	int  map_point2[7]={0,0,0,0,0,0,0};
+	int  jiugongge[9]={0,0,0,0,0,0,0,0,0};
+	int tem;
+	//#id空格-自身代表數值-自身代表數值減1的id值-自身代表數值加1的id值-自身代表數值減10的id值-自身代表數值加10的id值
+	//-自身代表數值的data存放id值-保留-保留-
+	int	 checkEmpty;
+	int  maxid;
+	
+	get_map(source,map_point,id);
+	if(checkEmpty==0)
+	{
+		printf("This id can't find in map0 error");
+		return 0;
+	}
+	switch(mapType)
+	{
+		case 0:
+		map_point[0]
+		
+		break;
+		
+		case 997:
+		//建立查詢id周圍9宮格
+			//取得maxid
+			get_map(source,map_point,2);
+			maxid=map_point[0];
+			
+			checkEmpty=get_map(source,map_point,id);
+			if(checkEmpty==0)
+			{
+				printf("This id error in 997 map(not exist this id)");
+				return 0;
+			}
+			jiugongge[0]=id;
+			
+			//jiugongge[1]建立
+			if(map_point[3]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[3]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[3]=jiugongge[0];//新生成id資料操作
+				set_map(source,map_point[0],map_point[1]+1,map_point2,maxid);////新生成id資料操作
+				jiugongge[1]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[3];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=map_point[3];//北
+				map_point2[2]=map_point[4];//東
+				map_point2[3]=jiugongge[0];//南
+				map_point2[4]=map_point[6];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				
+			}
+			
+		
+		break;
+		
+		case 998:
+		
+		break;
+		
+		case 999:
+		
+		break;
+		
+	}
+	
+}
+
+
+
+
+//建立999地圖
+//map0 無格式地圖
+//map999 格式999-北-東-南-西-分區-預留-  
+//id_0 無格式地圖要轉換的序號
+//id_999 目前999格式中使用的最大序號
+void creatLink(char *map0,char *map999,int id_0,int id_999,int direction)
 {
 
 	int  map_point[9]={0,0,0,0,0,0,0,0,0};
+	int  map_point2[9]={0,0,0,0,0,0,0,0,0};
+	int  map_point3[7]={0,0,0,0,0,0,0};
+	int  map_point4[7]={999,1,1,1,1,1,1};//用於初始化 數值1表未設定
 	int	 checkEmpty;
-	checkEmpty=get_map(fileName,map_point,id);
+	checkEmpty=get_map(map0,map_point,id_0);//hmap
 	if(checkEmpty==0)
 	{
-		printf("This id can't find error");
+		printf("This id can't find in map0 error");
 		return 0;
 	}
 	
-
+	//轉換無格式到999格式
+	checkEmpty=get_map(map999,map_point2,11);
+	//初始化確認
+	if(checkEmpty==0)
+	{
+		//第一次執行，建立初始連結11
+		set_map(map999,5000,5000,map_point4,11);
+	}
+	//開始轉換
+	//先看xy
+	nextLink(char *fileName,int *pointx4,int id,int direction)
+	
 
 }
+
 
 
 
