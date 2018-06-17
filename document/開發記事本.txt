@@ -69,3 +69,5 @@
 
 
 20180610 creatLink試做
+
+20180615 修改nextLink未取得id時的方法
