@@ -1112,6 +1112,7 @@ int x_id_linkMap(char *source,char *target,int id,int mapType)
 			jiugongge[0]=id;
 			
 			//jiugongge[1]建立
+			get_map(source,map_point,id);
 			if(map_point[3]==0)//等於0未配置
 			{
 				maxid++;
@@ -1134,9 +1135,260 @@ int x_id_linkMap(char *source,char *target,int id,int mapType)
 				map_point2[5]=map_point[7];//分區
 				map_point2[6]=map_point[8];//預留
 				set_map(source,map_point[0],map_point[1],map_point2,tem);
-				
+				initArryay(map_point2,7);
 			}
+			//jiugongge[3]建立
+			get_map(source,map_point,id);
+			if(map_point[4]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[4]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[4]=jiugongge[0];//新生成id資料操作
+				set_map(source,map_point[0]+1,map_point[1],map_point2,maxid);////新生成id資料操作
+				jiugongge[3]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[4];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=map_point[3];//北
+				map_point2[2]=map_point[4];//東
+				map_point2[3]=map_point[5];//南
+				map_point2[4]=jiugongge[0];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+
+			//jiugongge[5]建立
+			get_map(source,map_point,id);
+			if(map_point[5]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[5]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[1]=jiugongge[0];//新生成id資料操作
+				set_map(source,map_point[0],map_point[1]-1,map_point2,maxid);////新生成id資料操作
+				jiugongge[5]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[5];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=jiugongge[0];//北
+				map_point2[2]=map_point[4];//東
+				map_point2[3]=map_point[5];//南
+				map_point2[4]=map_point[6];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+		
+			//jiugongge[7]建立
+			get_map(source,map_point,id);
+			if(map_point[6]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[6]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[2]=jiugongge[0];//新生成id資料操作
+				set_map(source,map_point[0]-1,map_point[1],map_point2,maxid);////新生成id資料操作
+				jiugongge[7]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[6];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=map_point[3];//北
+				map_point2[2]=jiugongge[0];//東
+				map_point2[3]=map_point[5];//南
+				map_point2[4]=map_point[6];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+		
+			//jiugongge[2]建立
+			get_map(source,map_point,jiugongge[1]);
+			if(map_point[4]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[4]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[4]=jiugongge[1];//新生成id資料操作
+				map_point2[3]=jiugongge[3];//新生成id資料操作
+				set_map(source,map_point[0]+1,map_point[1],map_point2,maxid);////新生成id資料操作
+				jiugongge[2]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[4];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=map_point[3];//北
+				map_point2[2]=map_point[4];//東
+				map_point2[3]=jiugongge[3];//南
+				map_point2[4]=jiugongge[1];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+		
+			//jiugongge[8]建立
+			get_map(source,map_point,jiugongge[1]);
+			if(map_point[6]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[6]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[2]=jiugongge[1];//新生成id資料操作
+				map_point2[3]=jiugongge[7];//新生成id資料操作
+				set_map(source,map_point[0]-1,map_point[1],map_point2,maxid);////新生成id資料操作
+				jiugongge[8]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[6];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=map_point[3];//北
+				map_point2[2]=jiugongge[1];//東
+				map_point2[3]=jiugongge[7];//南
+				map_point2[4]=map_point[6];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+		
+			//jiugongge[4]建立
+			get_map(source,map_point,jiugongge[5]);
+			if(map_point[4]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[4]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[1]=jiugongge[3];//新生成id資料操作
+				map_point2[4]=jiugongge[5];//新生成id資料操作
+				set_map(source,map_point[0]+1,map_point[1],map_point2,maxid);////新生成id資料操作
+				jiugongge[4]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[4];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=jiugongge[3];//北
+				map_point2[2]=map_point[4];//東
+				map_point2[3]=map_point[5];//南
+				map_point2[4]=jiugongge[5];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+		
+			//jiugongge[6]建立
+			get_map(source,map_point,jiugongge[5]);
+			if(map_point[6]==0)//等於0未配置
+			{
+				maxid++;
+				map_point[6]=maxid;//查詢id資料操作
+				map_point2[0]=997;//新生成id資料操作
+				map_point2[1]=jiugongge[7];//新生成id資料操作
+				map_point2[2]=jiugongge[5];//新生成id資料操作
+				set_map(source,map_point[0]-1,map_point[1],map_point2,maxid);////新生成id資料操作
+				jiugongge[6]=maxid;
+				initArryay(map_point2,7);
+			}
+			else
+			{
+				tem=map_point[6];
+				get_map(source,map_point,tem);
+				map_point2[0]=map_point[2];//格式
+				map_point2[1]=jiugongge[7];//北
+				map_point2[2]=jiugongge[5];//東
+				map_point2[3]=map_point[5];//南
+				map_point2[4]=map_point[6];//西
+				map_point2[5]=map_point[7];//分區
+				map_point2[6]=map_point[8];//預留
+				set_map(source,map_point[0],map_point[1],map_point2,tem);
+				initArryay(map_point2,7);
+			}
+		
+			//jiugongge[1]更新
+			get_map(source,map_point,jiugongge[1]);
+			map_point2[0]=map_point[2];//格式
+			map_point2[1]=map_point[3];//北
+			map_point2[2]=jiugongge[2];//東
+			map_point2[3]=jiugongge[0];//南
+			map_point2[4]=jiugongge[8];//西
+			map_point2[5]=map_point[7];//分區
+			map_point2[6]=map_point[8];//預留
+			set_map(source,map_point[0],map_point[1],map_point2,jiugongge[1]);
+			initArryay(map_point2,7);
 			
+			//jiugongge[3]更新
+			get_map(source,map_point,jiugongge[3]);
+			map_point2[0]=map_point[2];//格式
+			map_point2[1]=jiugongge[2];//北
+			map_point2[2]=map_point[4];//東
+			map_point2[3]=jiugongge[4];//南
+			map_point2[4]=jiugongge[0];//西
+			map_point2[5]=map_point[7];//分區
+			map_point2[6]=map_point[8];//預留
+			set_map(source,map_point[0],map_point[1],map_point2,jiugongge[3]);
+			initArryay(map_point2,7);
+			
+			//jiugongge[5]更新
+			get_map(source,map_point,jiugongge[5]);
+			map_point2[0]=map_point[2];//格式
+			map_point2[1]=jiugongge[0];//北
+			map_point2[2]=jiugongge[4];//東
+			map_point2[3]=map_point[5];//南
+			map_point2[4]=jiugongge[6];//西
+			map_point2[5]=map_point[7];//分區
+			map_point2[6]=map_point[8];//預留
+			set_map(source,map_point[0],map_point[1],map_point2,jiugongge[5]);
+			initArryay(map_point2,7);
+			
+			//jiugongge[7]更新
+			get_map(source,map_point,jiugongge[7]);
+			map_point2[0]=map_point[2];//格式
+			map_point2[1]=jiugongge[8];//北
+			map_point2[2]=jiugongge[0];//東
+			map_point2[3]=jiugongge[6];//南
+			map_point2[4]=map_point[6];//西
+			map_point2[5]=map_point[7];//分區
+			map_point2[6]=map_point[8];//預留
+			set_map(source,map_point[0],map_point[1],map_point2,jiugongge[7]);
+			initArryay(map_point2,7);
+			
+			//jiugongge[0]更新
+			get_map(source,map_point,jiugongge[0]);
+			map_point2[0]=map_point[2];//格式
+			map_point2[1]=jiugongge[1];//北
+			map_point2[2]=jiugongge[3];//東
+			map_point2[3]=jiugongge[5];//南
+			map_point2[4]=jiugongge[7];//西
+			map_point2[5]=map_point[7];//分區
+			map_point2[6]=map_point[8];//預留
+			set_map(source,map_point[0],map_point[1],map_point2,jiugongge[0]);
+			initArryay(map_point2,7);
 		
 		break;
 		
